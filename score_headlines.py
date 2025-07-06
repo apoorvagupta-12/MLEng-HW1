@@ -5,7 +5,7 @@ from datetime import date
 import joblib
 from sentence_transformers import SentenceTransformer
 
-MODEL_PATH = './assignment/svm.joblib'
+MODEL_PATH = './Model/svm.joblib'
 
 def check_params():
     """ Take input from the user and ensure it's in the correct format. """
