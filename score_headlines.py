@@ -1,6 +1,7 @@
 import sys
 from sentence_transformers import SentenceTransformer
 import joblib
+from datetime import date
 
 # Check if we have the right number of arguments
 if len(sys.argv) != 3:
@@ -36,5 +37,15 @@ model = joblib.load('./assignment/svm.joblib')
 
 predictions = model.predict(headline_vectors)
 
-print(predictions)
+# print(predictions)
 
+# create variable that has output filename in format
+
+today = date.today()
+output_filename = f"headlines_scored_{headline_source}_{today.year}_{today.month}_{today.day}.txt"
+
+# print(output_filename)
+
+with open(output_filename, "w", encoding="utf-8") as f:
+    for headline, pred in zip(headlines, predictions):
+        f.write(f"{pred}, {headline}\n")
