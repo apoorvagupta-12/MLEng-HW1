@@ -1,7 +1,9 @@
+"""Script to score headlines using a pretrained SVM given some inputs."""
+
 import sys
-from sentence_transformers import SentenceTransformer
-import joblib
 from datetime import date
+import joblib
+from sentence_transformers import SentenceTransformer
 
 # Check if we have the right number of arguments
 if len(sys.argv) != 3:
@@ -42,10 +44,10 @@ predictions = model.predict(headline_vectors)
 # create variable that has output filename in format
 
 today = date.today()
-output_filename = f"headlines_scored_{headline_source}_{today.year}_{today.month}_{today.day}.txt"
+OUTPUT_FILENAME = f"headlines_scored_{headline_source}_{today.year}_{today.month}_{today.day}.txt"
 
 # print(output_filename)
 
-with open(output_filename, "w", encoding="utf-8") as f:
+with open(OUTPUT_FILENAME, "w", encoding="utf-8") as f:
     for headline, pred in zip(headlines, predictions):
         f.write(f"{pred}, {headline}\n")
