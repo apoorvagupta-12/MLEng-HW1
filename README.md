@@ -39,7 +39,6 @@ Please ensure the input txt file contains one headline per line (headlines are s
 From the example usage above, the script will create a file titled headlines_nyt_yyyy_mm_dd.txt and will have the following format:
 
 sentiment, headline
-
 sentiment, headline
 
 
