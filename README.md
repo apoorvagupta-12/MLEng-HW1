@@ -29,7 +29,7 @@ Run the script as follows
 python score_headlines.py headlines.txt nyt
 ```
 
-If the file with headlines and source aren't provided, an error will be thrown.
+If the file with headlines and source aren't provided, an error will be thrown. \n
 Please ensure the input txt file contains one headline per line (headlines are separated by '\n')
 
 ---
