@@ -56,4 +56,4 @@ def score_headlines(request: HeadlineRequest):
 
 
 if __name__ == "__main__":
-    uvicorn.run("score_headlines_api:app", host="0.0.0.1", port=8007, reload=True)
+    uvicorn.run("score_headlines_api:app", host="0.0.0.0", port=8007, reload=True)
