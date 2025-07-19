@@ -1,15 +1,14 @@
-from fastapi import FastAPI
-from fastapi.responses import JSONResponse
-from sentence_transformers import SentenceTransformer
-from fastapi import HTTPException
-from pydantic import BaseModel
+"""Script to create an API to score headlines leveraging knowledge from score_headlines.py"""
+
+import logging
 from typing import List
 
+from fastapi import FastAPI, HTTPException
+from fastapi.responses import JSONResponse
+from pydantic import BaseModel
+from sentence_transformers import SentenceTransformer
 import joblib
-from datetime import date
-import os
 import uvicorn
-import logging
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -29,7 +28,10 @@ def status():
     logger.info("Received GET request for /status")
     return JSONResponse({"status" : "ok"})
 
+
 class HeadlineRequest(BaseModel):
+    """Class to define the expected parameter type from POST request"""
+
     headlines: List[str]
 
 @app.post("/score_headlines")
@@ -49,7 +51,8 @@ def score_headlines(request: HeadlineRequest):
         return JSONResponse(content={"predictions": predictions.tolist()})
     except Exception as e:
         logger.warning("Error making predictions")
-        raise HTTPException(status_code=500, detail=f"Unable to make predictions. Please try again. {str(e)}")
+        raise HTTPException(status_code=500,
+                            detail=f"Unable to make predictions. Please try again. {str(e)}") from e
 
 
 if __name__ == "__main__":
