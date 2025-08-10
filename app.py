@@ -1,4 +1,4 @@
-# run the interface
+""" Streamlit UI to connect to webservice and call API """
 
 import pandas as pd
 import streamlit as st
@@ -19,7 +19,8 @@ if st.button("Enter"):
     else:
         try:
             response = requests.post(f"{API_HOST_URL}/score_headlines",
-                json={"headlines": headlines_list}
+                json={"headlines": headlines_list},
+                timeout=30
             )
             if response.status_code == 200:
                 st.success("Headline Sentiment:")
