@@ -30,7 +30,7 @@ for i, headline in enumerate(st.session_state.headlines):
     with cols[1]:
         if st.button("   Delete   ", key=f"del_{i}"):
             remove_headline(i)
-            # st.experimental_rerun()
+            st.rerun()
 
 st.button("Add Headline", on_click=add_headline)
 
