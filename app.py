@@ -8,11 +8,35 @@ API_HOST_URL = "http://localhost:8007"
 
 st.title("Headline Sentiment Predictor")
 
-inputs = st.text_area("Enter headlines (one per line):")
+# input below from MVP, one large text area. Used for testing
+# inputs = st.text_area("Enter headlines (one per line):")
 
-if st.button("Enter"):
+if "headlines" not in st.session_state:
+    st.session_state.headlines = [""]
 
-    headlines_list = [h.strip() for h in inputs.split("\n") if h.strip()]
+def add_headline():
+    """Helper function to dynamically add headlines"""
+    st.session_state.headlines.append("")
+
+def remove_headline(pos):
+    """Helper function to dynamically remove headlines"""
+    st.session_state.headlines.pop(pos)
+
+for i, headline in enumerate(st.session_state.headlines):
+    cols = st.columns([9, 1])
+    with cols[0]:
+        st.session_state.headlines[i] = st.text_input(f"Headline {i+1}",
+                                                      value=headline, key=f"headline_{i}")
+    with cols[1]:
+        if st.button("   Delete   ", key=f"del_{i}"):
+            remove_headline(i)
+            # st.experimental_rerun()
+
+st.button("Add Headline", on_click=add_headline)
+
+if st.button("Get Sentiment"):
+
+    headlines_list = [h.strip() for h in st.session_state.headlines if h.strip()]
 
     if not headlines_list:
         st.error("Please enter at least one headline.")
